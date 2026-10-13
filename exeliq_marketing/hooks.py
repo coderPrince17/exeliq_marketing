@@ -247,3 +247,19 @@ app_license = "mit"
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
 
+
+
+# Roles and permissions for the marketing team (Phase 1).
+# Custom DocPerm export = our two roles' rows, plus the copied standard rows of the four
+# lookup masters that had no custom permissions (Frappe switches a doctype to custom-only
+# the moment one custom row exists, so Sales must keep its access).
+fixtures = [
+    {"dt": "Role", "filters": [["name", "in", ["Marketing User", "Marketing Manager"]]]},
+    {
+        "dt": "Custom DocPerm",
+        "or_filters": [
+            ["role", "in", ["Marketing User", "Marketing Manager"]],
+            ["parent", "in", ["Lead Source", "Campaign", "Territory", "Opportunity Type"]],
+        ],
+    },
+]
